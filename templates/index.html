@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card-absolute w-25 bg-warning">
+        <div class="card-header">
+            Shaxsingizni tasdiqlang
+        </div>
+        <form method="post" action="{% url 'login' %}">{% csrf_token %}
+        <div class="card-body">
+                <label for="login">Login: </label>
+                <input name="login" id="login" class="form-control" type="text">
+                <br>
+                <label for="password">Parol: </label>
+                <input name="password" id="password" class="form-control" type="password">
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-secondary">Tasdiqlash</button>
+        </div>
+        </form>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
+

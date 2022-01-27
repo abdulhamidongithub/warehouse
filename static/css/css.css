@@ -1,0 +1,11 @@
+.card-absolute {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -100%);
+          transform: translate(-50%, -100%);
+}/*# sourceMappingURL=css.css.map */
+
+/* .wix{
+  width: 200px;
+} */

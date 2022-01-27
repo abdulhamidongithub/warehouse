@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-4.3.1/bootstrap-4.3.1/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+    <title>Ombor</title>
+</head>
+<body>
+    <div class="container w-100">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 align="center">Bo`limlar</h2>
+            </div>
+        </div>
+        <div class="row wix w-75 m-auto">
+            <a href="{% url 'mahsulotlar' %}" class="btn btn-dark p-5 wix col-md-6">
+                Mahsulot
+            </a>
+            <a href="{% url 'clientlar' %}" class="btn btn-success p-5 wix col-md-6">
+                Client
+            </a>
+            <a href="{% url 'stats' %}" class="btn btn-warning p-5 wix col-md-12">
+                Statistika
+            </a>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+</html>

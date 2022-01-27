@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>statis</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- IonIcons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'stats' %}" class="nav-link active">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="../index.html" class="brand-link">
+      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Online Ombor</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Felix</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header">Menu</li>
+          <li class="nav-item">
+            <a href="{% url 'stats' %}" class="nav-link active">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Statistics</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'clientlar' %}" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Clients</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'mahsulotlar' %}" class="nav-link">
+              <i class="nav-icon far fa-circle text-info"></i>
+              <p>Products</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Stats</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Clients</li>
+                <li class="breadcrumb-item"><a href="{% url 'logout' %}">Logout</a></li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div class="col-md-12">
+        <div class="card card-dark">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Statistika qo'shish</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table" style="text-align: center;">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 15px">T/r</th>
+                            <th scope="col" style="width: 255px; text-align: center;">Product</th>
+                            <th scope="col" style="text-align: center;">Client</th>
+                            <th scope="col" style="text-align: center;">Sana</th>
+                            <th scope="col" style="text-align: center;">Miqdor</th>
+                            <th scope="col" style="text-align: center;">Umumiy summa</th>
+                            <th scope="col" style="text-align: center;">To'landi</th>
+                            <th scope="col" style="text-align: center;">Nasiya</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in all_stats %}
+                        <tr>
+                            <th scope="row">{{i.id}}</th>
+                            <td>{{i.product.nom}} {{i.product.brend_nomi}}</td>
+                            <td>{{i.client.ism}} {{i.client.dokon_nomi}}</td>
+                            <td>{{i.sanasi}}</td>
+                            <td>{{i.miqdor}}</td>
+                            <td>{{i.umumiy_summa}} so'm</td>
+                            <td>{{i.tolandi}} so'm</td>
+                            <td>{{i.nasiya}} so'm</td>
+                            <td><a href="{% url 'stats-update' i.id %}"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header bg-dark">
+            <h4 class="modal-title">Yangi statistika</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <form action="{% url 'stats' %}" id="new-product-form" method="post">{% csrf_token %}
+            <div class="modal-body">
+              <label for="product">Product:</label>
+             <select name="product" id="product">
+                    {% for p in products %}
+                    <option value="{{p.id}}">{{p.nom}} ({{p.brend_nomi}}, {{p.sotuvdagi_narxi}} so'm)</option>
+                    {% endfor %}
+                </select>
+              <br>
+              <label for="client">Client:</label>
+                <select name="client" id="client">
+                    {% for c in clients %}
+                    <option value="{{c.id}}">{{c.ism}} ({{c.dokon_nomi}}, {{c.joylashuv}})</option>
+                    {% endfor %}
+                </select>
+              <br>
+              <label for="sana">Sana:</label>
+              <input type="datetime-local" name="sana" placeholder="Sana" id="sana" class="form-control" required>
+              <br>
+                <label for="miqdor">Miqdor:</label>
+              <input type="number" name="miqdor" placeholder="Miqdor" id="miqdor" class="form-control" required>
+              <br>
+              <label for="umumiy_summa">Umumiy summa:</label>
+              <input type="number" name="summa" placeholder="Umumiy summa" id="umumiy_summa" class="form-control" required>
+              <br>
+                <label for="nasiya">Nasiya:</label>
+              <input type="number" name="nasiya" placeholder="Nasiya" id="nasiya" class="form-control" required>
+              <br>
+                <label for="tolandi">To'landi:</label>
+              <input type="number" name="tolandi" placeholder="To'landi" id="tolandi" class="form-control" required>
+              <br>
+            </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Qo`shish</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+        </div>
+      </form>
+    
+        </div>
+      </div>
+    </div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE -->
+<script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{% static 'dist/js/pages/dashboard3.js' %}"></script>
+</body>
+</html>
