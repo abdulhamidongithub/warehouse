@@ -31,7 +31,7 @@ class MahsulotView(View):
             print(request.user)
             o = Ombor.objects.get(user=request.user)
             p = Product.objects.filter(ombor=o)
-            return render(request, 'products.html', {"all_products":p})
+            return render(request, 'products.html', {"all_products":p, "ombor":o})
         else:
             return redirect("login")
     def post(self, request):
@@ -70,9 +70,42 @@ class MahsulotEdit(View):
 class ClientView(View):
     def get(self, request):
         if request.user.is_authenticated:
-            o = Ombor.objects.filter(user=request.user)
+            o = Ombor.objects.get(user=request.user)
             clients = Client.objects.filter(ombor=o)
-            return render(request, 'clients.html', {"all_clients":clients})
+            return render(request, 'clients.html', {"all_clients":clients, "ombor":o})
+        else:
+            return redirect("login")
+    def post(self, request):
+        if request.user.is_authenticated:
+            o = Ombor.objects.filter(user=request.user)
+            Client.objects.create(
+                ism=request.POST.get("client_name"),
+                tel=request.POST.get("client_phone"),
+                dokon_nomi=request.POST.get("client_shop"),
+                joylashuv=request.POST.get("client_address"),
+                ombor = o
+            )
+            return redirect("clientlar")
+        else:
+            return redirect("login")
+
+class ClientEdit(View):
+    def get(self, request, son):
+        if request.user.is_authenticated:
+            product = Product.objects.get(id=son)
+            return render(request, 'product_update.html', {"product":product})
+        else:
+            return redirect("login")
+    def post(self, request, son):
+        if request.user.is_authenticated:
+            product = Product.objects.get(id=son)
+            product.nom=request.POST["name"]
+            product.brend_nomi=request.POST["brand_name"]
+            product.kelgan_narxi=request.POST["price"]
+            product.sotuvdagi_narx=request.POST["price2"]
+            product.miqdor=request.POST["amount"]
+            product.save()
+            return redirect("mahsulotlar")
         else:
             return redirect("login")
 

@@ -5,11 +5,31 @@ from .models import Stats
 
 class StatsView(View):
     def get(self, request):
-        stats = Stats.objects.all()
-        o = Ombor.objects.get(user=request.user)
-        clients = Client.objects.filter(ombor=o)
-        products = Product.objects.filter(ombor=o)
-        return render(request, 'stats.html', {"all_stats":stats, "products":products, "clients":clients})
+        if request.user.is_authenticated:
+            soz = request.GET.get("soz")
+            qidirish = request.GET.get("qidirish")
+            if qidirish == "m" and soz != "":
+                omborxona = Ombor.objects.get(user=request.user)
+                mah = Product.objects.filter(ombor=omborxona,nom__contains=soz)
+                s = Stats.objects.filter(ombor=omborxona, product=mah[0])
+                m = Product.objects.filter(ombor=omborxona)
+                c = Client.objects.filter(ombor=omborxona)
+                return render(request, "stats.html", {"all_stats": s, "ombor": omborxona, "clients": c, "products": m})
+            elif qidirish == "c" and soz != "":
+                omborxona = Ombor.objects.get(user=request.user)
+                client = Client.objects.filter(ombor=omborxona,ism__contains=soz)
+                if len(client) == 0:
+                    client = Client.objects.filter(ombor=omborxona, dokon_nomi__contains=soz)
+                s = Stats.objects.filter(ombor=omborxona, client=client[0])
+                m = Product.objects.filter(ombor=omborxona)
+                c = Client.objects.filter(ombor=omborxona)
+                return render(request, "stats.html", {"all_stats": s, "ombor": omborxona, "clients": c, "products": m})
+            else:
+                stats = Stats.objects.all()
+                o = Ombor.objects.get(user=request.user)
+                clients = Client.objects.filter(ombor=o)
+                products = Product.objects.filter(ombor=o)
+                return render(request, 'stats.html', {"all_stats":stats, "products":products, "clients":clients, "ombor":o})
     def post(self, request):
         m = request.POST['miqdor']
         n = request.POST['nasiya']

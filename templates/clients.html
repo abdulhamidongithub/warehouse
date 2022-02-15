@@ -53,20 +53,13 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../index.html" class="brand-link">
-      <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Online Ombor</span>
-    </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
         <div class="info">
-          <a href="#" class="d-block">Felix</a>
+          <a href="#" class="d-block">{{ombor.dokon_nomi}}</a>
         </div>
       </div>
 
@@ -135,19 +128,20 @@
                             <th scope="col" style="text-align: center;">Do'kon nomi</th>
                             <th scope="col" style="text-align: center;">Telefon raqami</th>
                             <th scope="col" style="text-align: center;">Manzili</th>
+                            <th scope="col" style="text-align: center;">Qarzi</th>
                             <th scope="col" style="text-align: center;"></th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for client in all_clients %}
+                    {% for i in all_clients %}
                         <tr>
-                            <th scope="row">{{client.id}}.</th>
-                            <td>{{client.ism}}</td>
-                            <td>{{client.tel}}</td>
-                            <td>{{client.dokon_nomi}}</td>
-                            <td>{{client.joylashuv}}</td>
-                            <td>{{client.qarz}}</td>
-                            <td><a href="{% url 'client-update' client.id %}"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
+                            <th scope="row">{{i.id}}.</th>
+                            <td>{{i.ism}}</td>
+                            <td>{{i.tel}}</td>
+                            <td>{{i.dokon_nomi}}</td>
+                            <td>{{i.joylashuv}}</td>
+                            <td>{{i.qarz}}</td>
+                            <td><a href="{% url 'client-update' i.id %}"><button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
